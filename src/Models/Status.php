@@ -2,12 +2,12 @@
 
 namespace Tipoff\Statuses\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tipoff\Support\Traits\HasPackageFactory;
 
 class Status extends Model
 {
-    use HasFactory;
+    use HasPackageFactory;
 
     protected $guarded = ['id'];
     protected $casts = [];
