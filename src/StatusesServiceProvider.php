@@ -6,7 +6,6 @@ namespace Tipoff\Statuses;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tipoff\Statuses\Commands\StatusesCommand;
 
 class StatusesServiceProvider extends PackageServiceProvider
 {
