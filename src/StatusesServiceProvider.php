@@ -1,13 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Statuses;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Tipoff\Statuses\Commands\StatusesCommand;
 
 class StatusesServiceProvider extends PackageServiceProvider
 {
+    public function boot()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        parent::boot();
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -17,9 +24,6 @@ class StatusesServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('statuses')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_statuses_table')
-            ->hasCommand(StatusesCommand::class);
+            ->hasConfigFile();
     }
 }
