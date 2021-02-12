@@ -9,6 +9,5 @@ class Status extends BaseModel
 {
     use HasPackageFactory;
 
-    protected $guarded = ['id'];
     protected $casts = [];
 }
