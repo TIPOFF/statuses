@@ -7,6 +7,8 @@ namespace Tipoff\Statuses;
 use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Tipoff\Statuses\Models\Status;
+use Tipoff\Statuses\Policies\StatusPolicy;
 
 class StatusesServiceProvider extends PackageServiceProvider
 {
