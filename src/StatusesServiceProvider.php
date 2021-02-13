@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Tipoff\Statuses;
 
+use Illuminate\Support\Facades\Gate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Tipoff\Statuses\Models\Status;
+use Tipoff\Statuses\Policies\StatusPolicy;
 
 class StatusesServiceProvider extends PackageServiceProvider
 {
@@ -25,5 +28,10 @@ class StatusesServiceProvider extends PackageServiceProvider
         $package
             ->name('statuses')
             ->hasConfigFile();
+    }
+
+    public function registeringPackage()
+    {
+        Gate::policy(Status::class, StatusPolicy::class);
     }
 }
