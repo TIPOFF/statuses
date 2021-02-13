@@ -15,7 +15,7 @@ class StatusesServiceProvider extends TipoffServiceProvider
     {
         $package
             ->hasPolicies([
-                Statuses::class => StatusPolicy::class,
+                Status::class => StatusPolicy::class,
             ])
             ->name('statuses')
             ->hasConfigFile();
