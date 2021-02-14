@@ -45,10 +45,7 @@
         "laravel": {
             "providers": [
                 "Tipoff\\Statuses\\StatusesServiceProvider"
-            ],
-            "aliases": {
-                "Statuses": "Tipoff\\Statuses\\StatusesFacade"
-            }
+            ]
         }
     },
     "repositories": [
