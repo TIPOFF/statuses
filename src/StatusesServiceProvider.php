@@ -17,6 +17,9 @@ class StatusesServiceProvider extends TipoffServiceProvider
             ->hasPolicies([
                 Status::class => StatusPolicy::class,
             ])
+            ->hasNovaResources([
+                \Tipoff\Statuses\Nova\Status::class,
+            ])
             ->name('statuses')
             ->hasConfigFile();
     }
