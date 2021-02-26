@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tipoff\Statuses\Nova;
 
 use Illuminate\Http\Request;
