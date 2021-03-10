@@ -6,8 +6,8 @@ namespace Tipoff\Statuses;
 
 use Tipoff\Statuses\Models\Status;
 use Tipoff\Statuses\Models\StatusRecord;
-use Tipoff\Statuses\Policies\StatusRecordPolicy;
 use Tipoff\Statuses\Policies\StatusPolicy;
+use Tipoff\Statuses\Policies\StatusRecordPolicy;
 use Tipoff\Support\TipoffPackage;
 use Tipoff\Support\TipoffServiceProvider;
 

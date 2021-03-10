@@ -120,7 +120,6 @@ class HasStatusesTest extends TestCase
         $this->assertEquals(['2', '3', '2', '3'], $history);
     }
 
-
     /** @test */
     public function scope_by_status()
     {
