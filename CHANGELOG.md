@@ -26,3 +26,9 @@ All notable changes to `statuses` will be documented in this file.
 - grant permissions to roles
 - add nova resources
 - register nova resources
+
+### 2.0.1 - 2021-03-10
+
+- status record policy
+- migrate status record permissions
+- status record permissions to roles
