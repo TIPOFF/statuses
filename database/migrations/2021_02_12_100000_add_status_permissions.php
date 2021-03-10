@@ -9,9 +9,9 @@ class AddStatusPermissions extends BasePermissionsMigration
     public function up()
     {
         $permissions = [
-            'view statuses',
-            'create statuses',
-            'update statuses'
+            'view statuses' => ['Owner', 'Staff'],
+            'create statuses' => ['Owner'],
+            'update statuses' => ['Owner']
         ];
 
         $this->createPermissions($permissions);
