@@ -15,3 +15,14 @@ All notable changes to `statuses` will be documented in this file.
 ### 1.1.0 - 2021-02-12
 
 - update migration
+
+### 2.0.0 - 2021-03-10
+
+- add models
+- add factories
+- add policies
+- register policies
+- migrate permissions
+- grant permissions to roles
+- add nova resources
+- register nova resources
