@@ -17,9 +17,11 @@ class StatusableFactory extends Factory
     public function definition()
     {
         $statusable = User::factory()->create();
+        $status = randomOrCreate(Status::class);
 
         return [
-            'status_id' => randomOrCreate(Status::class),
+            'status_id' => $status,
+            'type' => $status->type,
             'statusable_type' => get_class($statusable),
             'statusable_id' => $statusable->id,
             'creator_id' => randomOrCreate(app('user')),

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Tipoff\Statuses\Traits;
 
+use Illuminate\Support\Collection;
 use Tipoff\Statuses\Exceptions\UnknownStatusException;
 use Tipoff\Statuses\Models\Status;
 use Tipoff\Statuses\Models\Statusable;
 
 /**
- * @property Statusable statusable
+ * @property Collection statusables
  */
 trait HasStatuses
 {
@@ -17,48 +18,52 @@ trait HasStatuses
     // When false, exception occurs if unknown status value is used
     protected bool $dynamicStatusCreation = false;
 
-    // Assumes models can only have a single type of status
-    public function statusType(): string
+    public function getStatus(?string $type = null): ?Status
     {
-        // Default to using full class name as type
-        return get_class($this);
-    }
-
-    public function status(?string $name = null): ?Status
-    {
-        /** @var Statusable|null $statusable */
-        $statusable = $this->statusable;
-
-        if ($name) {
-            $status = $this->getStatusByName($name);
-
-            if (! $statusable) {
-                $statusable = new Statusable();
-                $statusable->statusable()->associate($this);
-            }
-
-            $statusable->status()->associate($status)->save();
-            $this->load('statusable');
-        }
+        $statusable = $this->getStatusableByType($type ?? get_class($this));
 
         return $statusable ? $statusable->status : null;
     }
 
-    public function statusable()
+    public function setStatus(string $name, ?string $type = null): ?Status
     {
-        return $this->morphOne(Statusable::class, 'statusable');
-    }
+        $type = $type ?? get_class($this);
+        $statusable = $this->getStatusableByType($type);
 
-    private function getStatusByName(string $name): Status
-    {
-        if ($this->dynamicStatusCreation) {
-            return Status::createStatus($this->statusType(), $name);
+        $status = $this->getStatusByName($name, $type);
+
+        if (! $statusable) {
+            $statusable = new Statusable();
+            $statusable->type = $type;
+            $statusable->statusable()->associate($this);
         }
 
-        if ($status = Status::findStatus($this->statusType(), $name)) {
+        $statusable->status()->associate($status)->save();
+        $this->load('statusables');
+
+        return $statusable->status;
+    }
+
+    public function statusables()
+    {
+        return $this->morphMany(Statusable::class, 'statusable');
+    }
+
+    private function getStatusableByType(string $type): ?Statusable
+    {
+        return $this->statusables()->where('type', '=', $type)->first();
+    }
+
+    private function getStatusByName(string $name, string $type): Status
+    {
+        if ($this->dynamicStatusCreation) {
+            return Status::createStatus($type, $name);
+        }
+
+        if ($status = Status::findStatus($type, $name)) {
             return $status;
         }
 
-        throw new UnknownStatusException($this->statusType(), $name);
+        throw new UnknownStatusException($type, $name);
     }
 }

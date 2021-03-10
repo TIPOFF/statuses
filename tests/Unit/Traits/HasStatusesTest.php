@@ -25,7 +25,7 @@ class HasStatusesTest extends TestCase
         $model = new TestModel();
         $model->save();
 
-        $status = $model->status();
+        $status = $model->getStatus();
         $this->assertNull($status);
     }
 
@@ -40,11 +40,44 @@ class HasStatusesTest extends TestCase
         $model->save();
 
         $this->actingAs(User::factory()->create());
-        $model->status('test status');
+        $model->setStatus('test status');
 
-        $foundStatus = $model->status();
+        $foundStatus = $model->getStatus();
         $this->assertNotNull($foundStatus);
         $this->assertEquals($status->id, $foundStatus->id);
+    }
+
+    /** @test */
+    public function set_valid_status_by_type()
+    {
+        TestModel::createTable();
+
+        Status::publishStatuses('type1', ['statusA', 'statusB']);
+        Status::publishStatuses('type2', ['status1', 'status2']);
+
+        $model = new TestModel();
+        $model->save();
+
+        $this->actingAs(User::factory()->create());
+        $model->setStatus('statusA', 'type1');
+        $model->setStatus('status1', 'type2');
+
+        $foundStatus = $model->getStatus();
+        $this->assertNull($foundStatus);
+
+        $foundStatus = $model->getStatus('type1');
+        $this->assertNotNull($foundStatus);
+        $this->assertEquals('statusA', (string) $foundStatus);
+
+        $foundStatus = $model->getStatus('type2');
+        $this->assertNotNull($foundStatus);
+        $this->assertEquals('status1', (string) $foundStatus);
+
+        $model->setStatus('statusB', 'type1');
+        $model->setStatus('status2', 'type2');
+
+        $this->assertEquals('statusB', (string) $model->getStatus('type1'));
+        $this->assertEquals('status2', (string) $model->getStatus('type2'));
     }
 
     /** @test */
@@ -59,7 +92,7 @@ class HasStatusesTest extends TestCase
         $this->expectExceptionMessage("Unknown status value 'test status' for status type Tipoff\Statuses\Tests\Unit\Traits\TestModel");
 
         $this->actingAs(User::factory()->create());
-        $model->status('test status');
+        $model->setStatus('test status');
     }
 
     /** @test */
@@ -72,7 +105,7 @@ class HasStatusesTest extends TestCase
         $model->setDynamicStaticCreation(true);
 
         $this->actingAs(User::factory()->create());
-        $status = $model->status('test status');
+        $status = $model->setStatus('test status');
 
         $this->assertNotNull($status);
         $this->assertEquals('test status', (string) $status);
