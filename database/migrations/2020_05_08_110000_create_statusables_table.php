@@ -16,7 +16,7 @@ class CreateStatusablesTable extends Migration
             $table->morphs('statusable');
             $table->string('type');     // Typically, full class name for model using status
             $table->foreignIdFor(app('user'), 'creator_id');
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 }
