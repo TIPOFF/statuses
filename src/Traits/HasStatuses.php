@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tipoff\Statuses\Traits;
 
-
 use Tipoff\Statuses\Exceptions\UnknownStatusException;
 use Tipoff\Statuses\Models\Status;
 use Tipoff\Statuses\Models\Statusable;
@@ -33,7 +32,7 @@ trait HasStatuses
         if ($name) {
             $status = $this->getStatusByName($name);
 
-            if (!$statusable) {
+            if (! $statusable) {
                 $statusable = new Statusable();
                 $statusable->statusable()->associate($this);
             }

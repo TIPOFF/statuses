@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Tipoff\Statuses\Tests\Unit\Traits;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Statuses\Exceptions\UnknownStatusException;
 use Tipoff\Statuses\Models\Status;
-use Tipoff\Statuses\Models\Statusable;
 use Tipoff\Statuses\Tests\TestCase;
 use Tipoff\Statuses\Traits\HasStatuses;
 use Tipoff\Support\Models\BaseModel;
