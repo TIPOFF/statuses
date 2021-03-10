@@ -13,8 +13,8 @@ class AddStatusPermissions extends BasePermissionsMigration
             'create statuses' => ['Owner'],
             'update statuses' => ['Owner'],
             'view status record' => ['Owner', 'Staff'],
-            'create status record' => ['Owner'],
-            'update status record' => ['Owner']
+            'create status record' => ['Owner', 'Staff'],
+            'update status record' => ['Owner', 'Staff'],
         ];
 
         $this->createPermissions($permissions);
