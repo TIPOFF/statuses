@@ -13,10 +13,12 @@ class CreateStatusesTable extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('slug')->unique()->index();
-            $table->string('name')->unique();
-            $table->string('applies_to')->default('order'); // Values include 'order', 'slot', 'game', 'invoice', 'payment'
+            $table->string('name');
+            $table->string('type');     // Typically, full class name for model using status
             $table->text('note')->nullable();
             $table->timestamps();
+
+            $table->unique(['name', 'type']);
         });
     }
 }
