@@ -7,17 +7,17 @@ namespace Tipoff\Statuses\Tests\Unit\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Statuses\Models\Status;
-use Tipoff\Statuses\Models\Statusable;
+use Tipoff\Statuses\Models\StatusRecord;
 use Tipoff\Statuses\Tests\TestCase;
 
-class StatusableTest extends TestCase
+class StatusRecordTest extends TestCase
 {
     use DatabaseTransactions;
 
     /** @test */
     public function create()
     {
-        $model = Statusable::factory()->create();
+        $model = StatusRecord::factory()->create();
         $this->assertNotNull($model);
 
         $status = $model->status;

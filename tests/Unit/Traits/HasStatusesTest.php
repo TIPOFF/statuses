@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Statuses\Exceptions\UnknownStatusException;
 use Tipoff\Statuses\Models\Status;
+use Tipoff\Statuses\Models\StatusRecord;
 use Tipoff\Statuses\Tests\TestCase;
 use Tipoff\Statuses\Traits\HasStatuses;
 use Tipoff\Support\Models\BaseModel;
@@ -78,6 +79,45 @@ class HasStatusesTest extends TestCase
 
         $this->assertEquals('statusB', (string) $model->getStatus('type1'));
         $this->assertEquals('status2', (string) $model->getStatus('type2'));
+    }
+
+    public function get_status_history()
+    {
+        TestModel::createTable();
+
+        Status::publishStatuses('type1', ['A', 'B', 'C', 'D']);
+        Status::publishStatuses('type2', ['1', '2', '3', '4']);
+
+        $model = new TestModel();
+        $model->save();
+
+        $this->actingAs(User::factory()->create());
+        $model->setStatus('A', 'type1');
+        $model->setStatus('D', 'type1');
+        $model->setStatus('C', 'type1');
+        $model->setStatus('A', 'type1');
+        $model->setStatus('B', 'type1');
+        $history = $model->getStatusHistory('type1')
+            ->map(function (StatusRecord $statusRecord) {
+                return (string) $statusRecord->status;
+            })
+            ->toArray();
+        $this->assertEquals(['B','A','C','D','A'], $history);
+
+        $model->setStatus('3', 'type2');
+        $model->setStatus('3', 'type2');
+        $model->setStatus('2', 'type2');
+        $model->setStatus('2', 'type2');
+        $model->setStatus('3', 'type2');
+        $model->setStatus('3', 'type2');
+        $model->setStatus('2', 'type2');
+        $model->setStatus('2', 'type2');
+        $history = $model->getStatusHistory('type2')
+            ->map(function (StatusRecord $statusRecord) {
+                return (string) $statusRecord->status;
+            })
+            ->toArray();
+        $this->assertEquals(['2', '3', '2', '3'], $history);
     }
 
     /** @test */

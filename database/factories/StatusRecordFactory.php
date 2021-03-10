@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Tipoff\Statuses\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Tipoff\Authorization\Models\User;
 use Tipoff\Statuses\Models\Status;
-use Tipoff\Statuses\Models\Statusable;
+use Tipoff\Statuses\Models\StatusRecord;
 
-class StatusableFactory extends Factory
+class StatusRecordFactory extends Factory
 {
-    protected $model = Statusable::class;
+    protected $model = StatusRecord::class;
 
     public function definition()
     {

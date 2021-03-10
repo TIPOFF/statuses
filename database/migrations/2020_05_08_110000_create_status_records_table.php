@@ -6,11 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusablesTable extends Migration
+class CreateStatusRecordsTable extends Migration
 {
     public function up()
     {
-        Schema::create('statusables', function (Blueprint $table) {
+        Schema::create('status_records', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(app('status'))->index();
             $table->morphs('statusable');

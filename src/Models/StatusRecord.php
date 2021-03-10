@@ -17,14 +17,15 @@ use Tipoff\Support\Traits\HasPackageFactory;
  * @property Model statusable
  * @property User creator
  * @property Carbon created_at
- * @property Carbon updated_at
  * // Raw Relations
  * @property int|null creator_id
  */
-class Statusable extends BaseModel
+class StatusRecord extends BaseModel
 {
     use HasPackageFactory;
     use HasCreator;
+
+    const UPDATED_AT = null;
 
     protected $casts = [
         'id' => 'integer',
