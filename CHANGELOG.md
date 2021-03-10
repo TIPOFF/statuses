@@ -32,3 +32,7 @@ All notable changes to `statuses` will be documented in this file.
 - status record policy
 - migrate status record permissions
 - status record permissions to roles
+
+### 2.0.2 - 2021-03-10
+
+- register status record policy
