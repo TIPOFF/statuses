@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tipoff\Statuses\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Tipoff\Statuses\Exceptions\UnknownStatusException;
 use Tipoff\Statuses\Models\Status;
@@ -17,6 +18,22 @@ trait HasStatuses
     // When true, new statuses will be added automatically on first use
     // When false, exception occurs if unknown status value is used
     protected bool $dynamicStatusCreation = false;
+
+    /**
+     * Return all records whose current/latest status value matches the status provided
+     */
+    public function scopeByStatus(Builder $query, Status $status): Builder
+    {
+        return $query->whereHas('statusRecords', function ($query) use ($status) {
+            $query->where('id', function ($sub) use ($status) {
+                $sub->from('status_records')
+                    ->selectRaw('max(id)')
+                    ->whereColumn('statusable_type', $this->getMorphClass())
+                    ->whereColumn('statusable_id', $this->getTable() . '.' . $this->getKeyName())
+                    ->whereColumn('type', $status->type);
+            })->where('status_id', $status->id);
+        });
+    }
 
     public function getStatusHistory(?string $type = null): Collection
     {

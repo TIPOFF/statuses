@@ -121,6 +121,36 @@ class HasStatusesTest extends TestCase
     }
 
     /** @test */
+    public function scope_by_status()
+    {
+        TestModel::createTable();
+
+        $this->actingAs(User::factory()->create());
+
+        Status::publishStatuses('type', ['1', '2', '3', '4', '5']);
+
+        TestModel::factory()->count(20)->create()->each(function (TestModel $model, int $idx) {
+            // Generate history
+            $model->setStatus('1', 'type');
+            if ($idx >= 5) {
+                $model->setStatus('2', 'type');
+                if ($idx >= 10) {
+                    $model->setStatus('3', 'type');
+                    if ($idx >= 15) {
+                        $model->setStatus('4', 'type');
+                    }
+                }
+            }
+        });
+
+        $this->assertEquals(5, TestModel::query()->byStatus(Status::findStatus('type', '1'))->count());
+        $this->assertEquals(5, TestModel::query()->byStatus(Status::findStatus('type', '2'))->count());
+        $this->assertEquals(5, TestModel::query()->byStatus(Status::findStatus('type', '3'))->count());
+        $this->assertEquals(5, TestModel::query()->byStatus(Status::findStatus('type', '4'))->count());
+        $this->assertEquals(0, TestModel::query()->byStatus(Status::findStatus('type', '5'))->count());
+    }
+
+    /** @test */
     public function set_unknown_status()
     {
         TestModel::createTable();
