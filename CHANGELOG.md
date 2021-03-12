@@ -40,3 +40,7 @@ All notable changes to `statuses` will be documented in this file.
 ### 2.0.3 - 2021-03-12
 
 - add trait for has status
+
+### 2.0.4 - 2021-03-12
+
+- fix dependency
