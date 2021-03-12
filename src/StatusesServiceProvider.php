@@ -22,6 +22,7 @@ class StatusesServiceProvider extends TipoffServiceProvider
             ])
             ->hasNovaResources([
                 \Tipoff\Statuses\Nova\Status::class,
+                \Tipoff\Statuses\Nova\StatusRecord::class,
             ])
             ->name('statuses')
             ->hasConfigFile();
