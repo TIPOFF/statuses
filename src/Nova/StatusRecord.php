@@ -20,7 +20,7 @@ class StatusRecord extends BaseResource
     public static $title = 'id';
 
     public static $search = [
-        'id', 'type'
+        'id', 'type',
     ];
 
     public static $group = 'Z - Admin';
@@ -29,7 +29,7 @@ class StatusRecord extends BaseResource
     {
         return array_filter([
             ID::make()->sortable(),
-            Text::make('Type',)->sortable(),
+            Text::make('Type', )->sortable(),
             Text::make('Status', 'status.id', function () {
                 return $this->status->name;
             })->sortable(),
