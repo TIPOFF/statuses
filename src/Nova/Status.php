@@ -23,7 +23,7 @@ class Status extends BaseResource
         'id',
     ];
 
-    public static $group = 'Operations Units';
+    public static $group = 'Z - Admin';
 
     public function fieldsForIndex(NovaRequest $request)
     {
