@@ -44,3 +44,7 @@ All notable changes to `statuses` will be documented in this file.
 ### 2.0.4 - 2021-03-12
 
 - fix dependency
+
+### 2.0.5 - 2021-03-15
+
+- status record nova resource
