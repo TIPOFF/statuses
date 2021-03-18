@@ -50,10 +50,10 @@ class Status extends BaseResource
 
     protected function dataFields(): array
     {
-        return [
-            ID::make(),
-            DateTime::make('Created At')->exceptOnForms(),
-            DateTime::make('Updated At')->exceptOnForms(),
-        ];
+        return array_merge(
+            parent::dataFields(),
+            $this->creatorDataFields(),
+            $this->updaterDataFields(),
+        );
     }
 }
