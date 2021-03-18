@@ -16,6 +16,8 @@ class CreateStatusesTable extends Migration
             $table->string('name');
             $table->string('type');     // Typically, full class name for model using status
             $table->text('note')->nullable();
+            $table->foreignIdFor(app('user'), 'creator_id')->nullable();
+            $table->foreignIdFor(app('user'), 'updater_id')->nullable();
             $table->timestamps();
 
             $table->unique(['name', 'type']);
