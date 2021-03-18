@@ -15,7 +15,7 @@ class CreateStatusRecordsTable extends Migration
             $table->foreignIdFor(app('status'))->index();
             $table->morphs('statusable');
             $table->string('type');     // Typically, full class name for model using status
-            $table->foreignIdFor(app('user'), 'creator_id');
+            $table->foreignIdFor(app('user'), 'creator_id')->nullable();
             $table->timestamp('created_at');
         });
     }
