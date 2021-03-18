@@ -22,8 +22,8 @@ use Tipoff\Support\Traits\HasPackageFactory;
  */
 class StatusRecord extends BaseModel
 {
-    use HasPackageFactory;
     use HasCreator;
+    use HasPackageFactory;
 
     const UPDATED_AT = null;
 

@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Tipoff\Support\Models\BaseModel;
+use Tipoff\Support\Traits\HasCreator;
 use Tipoff\Support\Traits\HasPackageFactory;
+use Tipoff\Support\Traits\HasUpdater;
 
 /**
  * @property int id
@@ -22,7 +24,9 @@ use Tipoff\Support\Traits\HasPackageFactory;
  */
 class Status extends BaseModel
 {
+    use HasCreator;
     use HasPackageFactory;
+    use HasUpdater;
 
     protected $casts = [
         'id' => 'integer',
