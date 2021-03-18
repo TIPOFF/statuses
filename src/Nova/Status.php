@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tipoff\Statuses\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
