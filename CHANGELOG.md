@@ -48,3 +48,7 @@ All notable changes to `statuses` will be documented in this file.
 ## 2.0.5 - 2021-03-15
 
 - status record nova resource
+
+## 2.1.0 - 2021-03-18
+
+- nullable creator & updater
