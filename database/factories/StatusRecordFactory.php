@@ -13,11 +13,14 @@ class StatusRecordFactory extends Factory
 
     public function definition()
     {
+        $statusable = randomOrCreate(app('user'));
+        $status = randomOrCreate(app('status'));
+
         return [
-            'status_id' => randomOrCreate(app('status')),
-            'type' => get_class(app('status')),
-            'statusable_type' => get_class(app('user')),
-            'statusable_id' => randomOrCreate(app('user')),
+            'status_id' => $status,
+            'type' => $status->type,
+            'statusable_type' => get_class($statusable),
+            'statusable_id' => $statusable->id,
             'creator_id' => randomOrCreate(app('user')),
         ];
     }
