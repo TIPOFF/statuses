@@ -34,7 +34,7 @@ class StatusRecord extends BaseModel
 
     public function status()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(app('status'));
     }
 
     public function statusable()

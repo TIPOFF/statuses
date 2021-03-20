@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tipoff\Statuses\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tipoff\Authorization\Models\User;
-use Tipoff\Statuses\Models\Status;
 use Tipoff\Statuses\Models\StatusRecord;
 
 class StatusRecordFactory extends Factory
@@ -15,8 +13,8 @@ class StatusRecordFactory extends Factory
 
     public function definition()
     {
-        $statusable = User::factory()->create();
-        $status = randomOrCreate(Status::class);
+        $statusable = randomOrCreate(app('user'));
+        $status = randomOrCreate(app('status'));
 
         return [
             'status_id' => $status,
