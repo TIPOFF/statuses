@@ -21,7 +21,7 @@ class Status extends BaseResource
     public static $title = 'name';
 
     public static $search = [
-        'id', 'name'
+        'id', 'name',
     ];
 
     public static $group = 'Z - Admin';
